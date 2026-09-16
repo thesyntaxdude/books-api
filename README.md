@@ -15,15 +15,14 @@
 
 ## Endpoints
 
-| METHOD | ENDPOINT      | USE                                   |
-| ------ | ------------- | ------------------------------------- |
-| GET    | /books        | list all books                        |
-| POST   | /books        | create a book                         |
-| GET    | /books/:id    | get a book by id                      |
-| PUT    | /books/:id    | update a book                         |
-| DELETE | /books/:id    | delete a book                         |
-| GET    | /books/filter | filter books by genre / year / author |
-| GET    | /books/search | search books by title                 |
+| METHOD | ENDPOINT      | USE                                          |
+| ------ | ------------- | -------------------------------------------- |
+| GET    | /books        | list all books                               |
+| POST   | /books        | create a book                                |
+| GET    | /books/:id    | get a book by id                             |
+| PUT    | /books/:id    | update a book                                |
+| DELETE | /books/:id    | delete a book                                |
+| GET    | /books/search | search books by genre / year / author /title |
 
 ## Book Shape
 
