@@ -3,6 +3,7 @@ import {
   createNewBook,
   listABook,
   listAllBooks,
+  removeBook,
   updateBook,
 } from "../controllers/booksController.js";
 import validateNewPost from "../middleware/vaildateNewPost.js";
@@ -20,5 +21,6 @@ router
 router
   .route("/:id")
   .get(listABook)
-  .put(validateUpdate, sanitizeUpdate, updateBook);
+  .put(validateUpdate, sanitizeUpdate, updateBook)
+  .delete(removeBook);
 export default router;

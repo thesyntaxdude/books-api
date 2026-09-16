@@ -22,7 +22,13 @@ const books = [
 
 export function getAll() {
   return new Promise((resolve, reject) => {
-    resolve(books);
+    const activeBooks = [];
+    books.forEach((book) => {
+      if (!book.deleted) {
+        activeBooks.push(book);
+      }
+    });
+    resolve(activeBooks);
   });
 }
 
@@ -44,7 +50,7 @@ export function create(title, author, year, genre) {
 export function listBook(id) {
   return new Promise((resolve, reject) => {
     const book = books.find((b) => b.id === id);
-    if (!book) {
+    if (!book || book.deleted) {
       return reject(new AppError(`book with id: ${id} not found`, 404));
     }
     resolve(book);
@@ -65,5 +71,13 @@ export function update(id, title, author, year, genre) {
     };
     books.splice(index, 1, updatedBook);
     resolve(updatedBook);
+  });
+}
+
+export function remove(id) {
+  return new Promise(async (resolve, reject) => {
+    const book = await listBook(id);
+    book.deleted = "true";
+    resolve(book);
   });
 }

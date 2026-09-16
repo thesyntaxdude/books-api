@@ -1,4 +1,10 @@
-import { create, getAll, listBook, update } from "../services/booksService.js";
+import {
+  create,
+  getAll,
+  listBook,
+  remove,
+  update,
+} from "../services/booksService.js";
 
 export async function listAllBooks(req, res, next) {
   res.json(await getAll());
@@ -21,4 +27,10 @@ export async function updateBook(req, res, next) {
   const { id } = req.params;
   const updatedBook = await update(id, title, author, year, genre);
   res.json(updatedBook);
+}
+
+export async function removeBook(req, res, next) {
+  const { id } = req.params;
+  const deletedBook = await remove(id);
+  res.json(deletedBook);
 }
