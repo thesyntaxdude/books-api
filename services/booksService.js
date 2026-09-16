@@ -50,3 +50,20 @@ export function listBook(id) {
     resolve(book);
   });
 }
+
+export function update(id, title, author, year, genre) {
+  return new Promise(async (resolve, reject) => {
+    const book = await listBook(id);
+    const index = books.indexOf(book);
+    const updatedBook = {
+      id: book.id,
+      title: title || book.title,
+      author: author || book.author,
+      year: year || book.year,
+      genre: genre || book.genre,
+      createdAt: book.createdAt,
+    };
+    books.splice(index, 1, updatedBook);
+    resolve(updatedBook);
+  });
+}
