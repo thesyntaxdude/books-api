@@ -1,5 +1,9 @@
 import express from "express";
-import { createNewBook, listAllBooks } from "../controllers/booksController.js";
+import {
+  createNewBook,
+  listABook,
+  listAllBooks,
+} from "../controllers/booksController.js";
 import validateNewPost from "../middleware/vaildateNewPost.js";
 import sanitizeNewPost from "../middleware/sanitizeNewPost.js";
 
@@ -10,4 +14,5 @@ router
   .get(listAllBooks)
   .post(validateNewPost, sanitizeNewPost, createNewBook);
 
+router.route("/:id").get(listABook);
 export default router;

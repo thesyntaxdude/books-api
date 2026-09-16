@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import AppError from "../utils/AppError.js";
 
 const books = [
   {
@@ -37,5 +38,15 @@ export function create(title, author, year, genre) {
     };
     books.push(Book);
     resolve(Book);
+  });
+}
+
+export function listBook(id) {
+  return new Promise((resolve, reject) => {
+    const book = books.find((b) => b.id === id);
+    if (!book) {
+      return reject(new AppError(`book with id: ${id} not found`, 404));
+    }
+    resolve(book);
   });
 }
