@@ -8,7 +8,7 @@ export default function (req, res, next) {
 
   if (title) {
     const sanitizedTitle = title.trim();
-    if (sanitizedTitle.length > 3) {
+    if (sanitizedTitle.length > 1) {
       req.body.title = sanitizedTitle;
     } else {
       return next(
@@ -18,7 +18,7 @@ export default function (req, res, next) {
   }
   if (author) {
     const sanitizedAuthor = author.trim();
-    if (sanitizedAuthor.length > 3) {
+    if (sanitizedAuthor.length > 1) {
       req.body.author = sanitizedAuthor;
     } else {
       return next(
@@ -28,7 +28,7 @@ export default function (req, res, next) {
   }
   if (year) {
     const sanitizedYear = year.toString().trim();
-    if (sanitizedYear.length > 3) {
+    if (sanitizedYear.length === 4) {
       req.body.year = parseInt(sanitizedYear);
     } else {
       return next(new AppError("Invalid Year value. Check and try again", 400));
@@ -36,7 +36,7 @@ export default function (req, res, next) {
   }
   if (genre) {
     const sanitizedGenre = genre.trim();
-    if (sanitizedGenre.length > 3) {
+    if (sanitizedGenre.length > 1) {
       req.body.genre = sanitizedGenre;
     } else {
       return next(
