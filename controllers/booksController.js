@@ -3,6 +3,7 @@ import {
   getAll,
   listBook,
   remove,
+  search,
   update,
 } from "../services/booksService.js";
 
@@ -33,4 +34,10 @@ export async function removeBook(req, res, next) {
   const { id } = req.params;
   const deletedBook = await remove(id);
   res.json(deletedBook);
+}
+
+export async function filterBooks(req, res, next) {
+  const { title, author, year, genre } = req.query;
+  const filteredBooks = await search(title, author, year, genre);
+  res.json(filteredBooks);
 }
