@@ -7,10 +7,10 @@ export default function sanitizeNewPost(req, res, next) {
   const genre = req.body.genre.trim();
 
   if (
-    title.length < 3 ||
-    author.length < 3 ||
+    title.length < 1 ||
+    author.length < 1 ||
     year.length !== 4 ||
-    genre.length < 3
+    genre.length < 1
   ) {
     return next(
       new AppError(
