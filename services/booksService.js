@@ -93,7 +93,8 @@ export function search(title, author, year, genre) {
 
         return matchesTitle && matchesAuthor && matchesGenre && matchesYear;
       });
-      resolve(filtered);
+      return resolve(filtered);
     }
+    reject(new AppError("Invalid data", 400));
   });
 }
