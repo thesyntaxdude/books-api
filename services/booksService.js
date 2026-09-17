@@ -97,6 +97,6 @@ export function search(title, author, year, genre) {
       });
       return resolve(filtered);
     }
-    reject(new AppError("Invalid data", 400));
+    resolve([]);
   });
 }
