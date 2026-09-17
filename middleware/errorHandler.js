@@ -1,7 +1,7 @@
 export default function errorHandler(error, req, res, next) {
   console.error(error.stack);
   if (req.headersSent) {
-    next(error);
+    return next(error);
   }
   const message = error.isOperational
     ? error.message

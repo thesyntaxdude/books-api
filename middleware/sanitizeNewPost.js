@@ -14,7 +14,7 @@ export default function sanitizeNewPost(req, res, next) {
   ) {
     return next(
       new AppError(
-        "Please double check all fields. Min.Length is 3 for all fields except for year which is 4",
+        "Please double check all fields. Min.Length is 1 for all fields except for year which is 4",
         400,
       ),
     );
