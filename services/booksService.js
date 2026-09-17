@@ -77,7 +77,7 @@ export function update(id, title, author, year, genre) {
 export function remove(id) {
   return new Promise(async (resolve, reject) => {
     const book = await listBook(id);
-    book.deleted = "true";
+    book.deleted = true;
     resolve(book);
   });
 }
@@ -86,12 +86,14 @@ export function search(title, author, year, genre) {
   return new Promise((resolve, reject) => {
     if (books.length > 0) {
       const filtered = books.filter((book) => {
-        const matchesTitle = !title || book.title.includes(title);
-        const matchesAuthor = !author || book.author.includes(author);
-        const matchesGenre = !genre || book.genre.includes(genre);
-        const matchesYear = !year || book.year === year;
+        if (!book.deleted) {
+          const matchesTitle = !title || book.title.includes(title);
+          const matchesAuthor = !author || book.author.includes(author);
+          const matchesGenre = !genre || book.genre.includes(genre);
+          const matchesYear = !year || book.year === year;
 
-        return matchesTitle && matchesAuthor && matchesGenre && matchesYear;
+          return matchesTitle && matchesAuthor && matchesGenre && matchesYear;
+        }
       });
       return resolve(filtered);
     }
