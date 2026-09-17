@@ -11,7 +11,9 @@ export default function (req, res, next) {
     if (sanitizedTitle.length > 3) {
       req.body.title = sanitizedTitle;
     } else {
-      next(new AppError("Invalid Title value. Check and try again", 400));
+      return next(
+        new AppError("Invalid Title value. Check and try again", 400),
+      );
     }
   }
   if (author) {
@@ -19,7 +21,9 @@ export default function (req, res, next) {
     if (sanitizedAuthor.length > 3) {
       req.body.author = sanitizedAuthor;
     } else {
-      next(new AppError("Invalid Author value. Check and try again", 400));
+      return next(
+        new AppError("Invalid Author value. Check and try again", 400),
+      );
     }
   }
   if (year) {
@@ -27,7 +31,7 @@ export default function (req, res, next) {
     if (sanitizedYear.length > 3) {
       req.body.year = parseInt(sanitizedYear);
     } else {
-      next(new AppError("Invalid Year value. Check and try again", 400));
+      return next(new AppError("Invalid Year value. Check and try again", 400));
     }
   }
   if (genre) {
@@ -35,7 +39,9 @@ export default function (req, res, next) {
     if (sanitizedGenre.length > 3) {
       req.body.genre = sanitizedGenre;
     } else {
-      next(new AppError("Invalid Genre value. Check and try again", 400));
+      return next(
+        new AppError("Invalid Genre value. Check and try again", 400),
+      );
     }
   }
   next();
