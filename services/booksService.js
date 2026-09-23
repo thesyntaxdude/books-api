@@ -21,16 +21,8 @@ const books = [
   },
 ];
 
-export function getAll() {
-  return new Promise((resolve, reject) => {
-    const activeBooks = [];
-    books.forEach((book) => {
-      if (!book.deleted) {
-        activeBooks.push(book);
-      }
-    });
-    resolve(activeBooks);
-  });
+export async function getAll() {
+  return await Book.find({ isDeleted: false });
 }
 
 export async function create(title, author, year, genre) {
@@ -43,14 +35,8 @@ export async function create(title, author, year, genre) {
   return await Book.create(book);
 }
 
-export function listBook(id) {
-  return new Promise((resolve, reject) => {
-    const book = books.find((b) => b.id === id);
-    if (!book || book.deleted) {
-      return reject(new AppError(`book with id: ${id} not found`, 404));
-    }
-    resolve(book);
-  });
+export async function listBook(id) {
+  return await Book.findOne({ _id: id, isDeleted: false });
 }
 
 export function update(id, title, author, year, genre) {
