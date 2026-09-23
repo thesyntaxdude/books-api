@@ -6,6 +6,6 @@ export default function errorHandler(error, req, res, next) {
   const message = error.isOperational
     ? error.message
     : "An unexpected error occured";
-  const statusCode = error.statusCode || 500;
+  const statusCode = error.statusCode;
   res.status(statusCode).json({ message });
 }
