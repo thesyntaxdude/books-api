@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import Book from "../models/bookModel.js";
 import AppError from "../utils/AppError.js";
 
 const books = [
@@ -32,19 +33,14 @@ export function getAll() {
   });
 }
 
-export function create(title, author, year, genre) {
-  return new Promise((resolve, reject) => {
-    const Book = {
-      id: uuidv4(),
-      title,
-      author,
-      year,
-      genre,
-      createdAt: new Date().toLocaleString(),
-    };
-    books.push(Book);
-    resolve(Book);
+export async function create(title, author, year, genre) {
+  const book = new Book({
+    title,
+    author,
+    year,
+    genre,
   });
+  return await Book.create(book);
 }
 
 export function listBook(id) {

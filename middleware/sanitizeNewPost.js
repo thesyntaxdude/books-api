@@ -4,14 +4,8 @@ export default function sanitizeNewPost(req, res, next) {
   const title = req.body.title.trim();
   const author = req.body.author.trim();
   const year = req.body.year.toString().trim();
-  const genre = req.body.genre.trim();
 
-  if (
-    title.length < 1 ||
-    author.length < 1 ||
-    year.length !== 4 ||
-    genre.length < 1
-  ) {
+  if (title.length < 1 || author.length < 1 || year.length !== 4) {
     return next(
       new AppError(
         "Please double check all fields. Min.Length is 1 for all fields except for year which is 4",
@@ -21,7 +15,6 @@ export default function sanitizeNewPost(req, res, next) {
   }
   req.body.title = title;
   req.body.author = author;
-  req.body.genre = genre;
   req.body.year = parseInt(year);
   next();
 }
