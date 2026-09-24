@@ -4,7 +4,6 @@ export default function (req, res, next) {
   const title = req.body.title;
   const author = req.body.author;
   const year = req.body.year;
-  const genre = req.body.genre;
 
   if (title) {
     const sanitizedTitle = title.trim();
@@ -32,16 +31,6 @@ export default function (req, res, next) {
       req.body.year = parseInt(sanitizedYear);
     } else {
       return next(new AppError("Invalid Year value. Check and try again", 400));
-    }
-  }
-  if (genre) {
-    const sanitizedGenre = genre.trim();
-    if (sanitizedGenre.length > 1) {
-      req.body.genre = sanitizedGenre;
-    } else {
-      return next(
-        new AppError("Invalid Genre value. Check and try again", 400),
-      );
     }
   }
   next();
