@@ -1,25 +1,6 @@
 import Book from "../models/bookModel.js";
 import AppError from "../utils/AppError.js";
 
-const books = [
-  {
-    id: "uuid",
-    title: "book title",
-    author: "book author",
-    year: 2000,
-    genre: "book genre",
-    createdAt: "current time",
-  },
-  {
-    id: "uuid2",
-    title: "book title 2",
-    author: "book author 2",
-    year: 1485,
-    genre: "book genre 2",
-    createdAt: "current time 2",
-  },
-];
-
 export async function getAll() {
   return await Book.find({ isDeleted: false });
 }
@@ -62,21 +43,11 @@ export async function remove(id) {
   return { message: `book with id: ${id} has been deleted succesfully` };
 }
 
-export function search(title, author, year, genre) {
-  return new Promise((resolve, reject) => {
-    if (books.length > 0) {
-      const filtered = books.filter((book) => {
-        if (!book.deleted) {
-          const matchesTitle = !title || book.title.includes(title);
-          const matchesAuthor = !author || book.author.includes(author);
-          const matchesGenre = !genre || book.genre.includes(genre);
-          const matchesYear = !year || book.year === year;
-
-          return matchesTitle && matchesAuthor && matchesGenre && matchesYear;
-        }
-      });
-      return resolve(filtered);
-    }
-    resolve([]);
-  });
+export async function search(title, author, year, genre) {
+  const filter = { isDeleted: false };
+  if (title) filter.title = { $regex: title, $options: "i" };
+  if (author) filter.author = { $regex: author, $options: "i" };
+  if (genre) filter.genre = genre;
+  if (year != undefined) filter.year = year;
+  return Book.find(filter);
 }
