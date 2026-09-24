@@ -1,5 +1,5 @@
 import app from "./app.js";
-import config from "./config.js";
+import config from "./config/config.js";
 import connectDB from "./config/connectDB.js";
 
 await connectDB();
