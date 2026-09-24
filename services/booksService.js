@@ -36,32 +36,31 @@ export async function create(title, author, year, genre) {
 }
 
 export async function listBook(id) {
-  return await Book.findOne({ _id: id, isDeleted: false });
+  const book = await Book.findOne({ _id: id, isDeleted: false });
+  if (!book) {
+    throw new AppError(`book with id: ${id} not found`);
+  }
+  return book;
 }
 
-export function update(id, title, author, year, genre) {
-  return new Promise(async (resolve, reject) => {
-    const book = await listBook(id);
-    const index = books.indexOf(book);
-    const updatedBook = {
-      id: book.id,
-      title: title || book.title,
-      author: author || book.author,
-      year: year || book.year,
-      genre: genre || book.genre,
-      createdAt: book.createdAt,
-    };
-    books.splice(index, 1, updatedBook);
-    resolve(updatedBook);
-  });
+export async function update(id, title, author, year, genre) {
+  const book = await listBook(id);
+  const updatedBook = {
+    title: title || book.title,
+    author: author || book.author,
+    year: year || book.year,
+    genre: genre || book.genre,
+  };
+  await Book.updateOne({ _id: id }, updatedBook);
+  return await listBook(id);
 }
 
-export function remove(id) {
-  return new Promise(async (resolve, reject) => {
-    const book = await listBook(id);
-    book.deleted = true;
-    resolve(book);
-  });
+export async function remove(id) {
+  const book = await listBook(id);
+  book.isDeleted = true;
+  book.deletedAt = new Date();
+  book.save();
+  return { message: `book with id: ${id} has been deleted succesfully` };
 }
 
 export function search(title, author, year, genre) {
