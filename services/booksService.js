@@ -59,7 +59,7 @@ export async function remove(id) {
   const book = await listBook(id);
   book.isDeleted = true;
   book.deletedAt = new Date();
-  book.save();
+  await book.save();
   return { message: `book with id: ${id} has been deleted succesfully` };
 }
 
