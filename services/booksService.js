@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import Book from "../models/bookModel.js";
 import AppError from "../utils/AppError.js";
 
@@ -26,19 +25,19 @@ export async function getAll() {
 }
 
 export async function create(title, author, year, genre) {
-  const book = new Book({
+  const book = {
     title,
     author,
     year,
     genre,
-  });
+  };
   return await Book.create(book);
 }
 
 export async function listBook(id) {
   const book = await Book.findOne({ _id: id, isDeleted: false });
   if (!book) {
-    throw new AppError(`book with id: ${id} not found`);
+    throw new AppError(`book with id: ${id} not found`, 404);
   }
   return book;
 }
